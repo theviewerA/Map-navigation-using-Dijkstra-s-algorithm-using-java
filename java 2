@@ -1,0 +1,44 @@
+class NavigationSystem {
+    private Graph graph;
+
+    public NavigationSystem() {
+        graph = new Graph();
+    }
+
+    public void addLocation(String location) {
+        graph.addNode(location);
+    }
+
+    public void connectLocations(String loc1, String loc2) {
+        graph.addEdge(loc1, loc2);
+    }
+
+    public List<String> findPath(String start, String end) {
+        Set<String> visited = new HashSet<>();
+        List<String> path = new ArrayList<>();
+        if (dfs(start, end, visited, path)) {
+            return path;
+        }
+        return Collections.emptyList(); // Return empty if no path found
+    }
+
+    private boolean dfs(String current, String end, Set<String> visited, List<String> path) {
+        visited.add(current);
+        path.add(current);
+
+        if (current.equals(end)) {
+            return true;
+        }
+
+        for (String neighbor : graph.getNeighbors(current)) {
+            if (!visited.contains(neighbor)) {
+                if (dfs(neighbor, end, visited, path)) {
+                    return true;
+                }
+            }
+        }
+
+        path.remove(path.size() - 1); // Backtrack
+        return false;
+    }
+}
