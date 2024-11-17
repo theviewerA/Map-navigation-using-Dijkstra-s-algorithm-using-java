@@ -1,0 +1,23 @@
+
+import java.util.*;
+
+class Graph {
+    private Map<String, List<String>> adjList;
+
+    public Graph() {
+        adjList = new HashMap<>();
+    }
+
+    public void addNode(String node) {
+        adjList.putIfAbsent(node, new ArrayList<>());
+    }
+
+    public void addEdge(String from, String to) {
+        adjList.get(from).add(to);
+        adjList.get(to).add(from); // Assuming undirected graph
+    }
+
+    public List<String> getNeighbors(String node) {
+        return adjList.getOrDefault(node, new ArrayList<>());
+    }
+}
