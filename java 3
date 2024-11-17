@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        NavigationSystem navSystem = new NavigationSystem();
+        
+        // Adding locations
+        navSystem.addLocation("A");
+        navSystem.addLocation("B");
+        navSystem.addLocation("C");
+        navSystem.addLocation("D");
+        
+        // Connecting locations
+        navSystem.connectLocations("A", "B");
+        navSystem.connectLocations("A", "C");
+        navSystem.connectLocations("B", "D");
+        navSystem.connectLocations("C", "D");
+
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Enter start location:");
+        String start = scanner.nextLine();
+        
+        System.out.println("Enter end location:");
+        String end = scanner.nextLine();
+        
+        List<String> path = navSystem.findPath(start, end);
+        
+        if (path.isEmpty()) {
+            System.out.println("No path found between " + start + " and " + end);
+        } else {
+            System.out.println("Path found: " + String.join(" -> ", path));
+        }
+        
+        scanner.close();
+    }
+}
